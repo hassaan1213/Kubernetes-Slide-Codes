@@ -1,18 +1,18 @@
-apiVersion: batch/v1
 kind: CronJob
+apiVersion: batch/v1beta1
 metadata:
- name: batch-job-every-minute
+  name: cj
 spec:
- schedule: "* * * * *"
- jobTemplate:
-   spec:
-     template:
-       metadata:
-         labels:
-           app: periodic-batch-job
-       spec:
-         restartPolicy: OnFailure
-         containers:
-         - name: main
-           image: docker/whalesay
-           command: ["cowsay",  "This is a CronJob!"]
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: cjexample
+        spec:
+          containers:
+          - name: cjcontainer
+            image: docker/whalesay
+            command: ["cowsay","CornJob example"]
+          restartPolicy: Never
